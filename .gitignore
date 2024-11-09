@@ -9,4 +9,4 @@ __pycache__/
 
 # django stuff
 db.sqlite3
-media/
+media/ # гит плохо работает с изображениями
