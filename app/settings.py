@@ -43,9 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.postgres', # для полнотекстового поиска с сортировкой по релевантности
 
     'debug_toolbar',
-    
+    # регистрация приложений
     'main',
     'goods',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -65,7 +66,7 @@ ROOT_URLCONF = 'app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
