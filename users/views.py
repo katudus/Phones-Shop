@@ -1,9 +1,10 @@
-from django.contrib import auth
+from django.contrib.auth.decorators import login_required
+from django.contrib import auth, messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-from users.forms import UserLoginForm, UserRegistrationForm
+from users.forms import ProfileForm, UserLoginForm, UserRegistrationForm
 
 
 def login(request):
@@ -15,6 +16,7 @@ def login(request):
             user = auth.authenticate(username=username, password=password) # проверка наличия пользователя, возв юзера
             if user:
                 auth.login(request, user) # авторизуем
+                messages.success(request, f"{username}, Вы вошли в аккаунт") # обратная связь с пользователем
                 return HttpResponseRedirect(reverse('main:index')) # перенаправление, reverse() преобр в url адрес
     else:
         form = UserLoginForm() # пустая форма
@@ -33,6 +35,7 @@ def registration(request):
             form.save() # сохранение в бд нового юзера
             user = form.instance # получение пользователя из формы
             auth.login(request, user) # обход повторного ввода логина и пароля
+            messages.success(request, f"{user.username}, Вы успешно зарегистрированы и вошли в аккаунт")
             return HttpResponseRedirect(reverse('main:index'))
     else:
         form = UserRegistrationForm() # пустая форма
@@ -44,13 +47,26 @@ def registration(request):
     return render(request, 'users/registration.html', context)
 
 
+@login_required # запрещаем доступ неавторизованным юзерам
 def profile(request):
+    if request.method == 'POST':
+        form = ProfileForm(data=request.POST, instance=request.user, files=request.FILES)
+        if form.is_valid():
+            form.save() # сохранение в бд изменения юзера
+            messages.success(request, "Профиль успешно обновлен")
+            return HttpResponseRedirect(reverse('user:profile'))
+    else:
+        form = ProfileForm(instance=request.user) # форма c имеющимися данными о юзере
+
     context = {
-        'title': 'Home - Кабинет'
+        'title': 'Home - Кабинет',
+        'form': form
     }
     return render(request, 'users/profile.html', context)
 
 
+@login_required
 def logout(request):
+    messages.success(request, f"{request.user.username}, Вы вышли из аккаунта")
     auth.logout(request)
     return redirect(reverse('main:index'))

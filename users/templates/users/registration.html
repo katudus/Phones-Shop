@@ -17,6 +17,7 @@
                                 name="first_name"
                                 placeholder="Введите ваше имя" required>
                                 {% if form.first_name.errors %}
+                                <!-- Оповещения в формах -->
                                 <div class="alert alert-danger alert-dismissible fade show">{{form.first_name.errors}}</div>
                                 {% endif %}
                         </div>
