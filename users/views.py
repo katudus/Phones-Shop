@@ -17,6 +17,10 @@ def login(request):
             if user:
                 auth.login(request, user) # авторизуем
                 messages.success(request, f"{username}, Вы вошли в аккаунт") # обратная связь с пользователем
+
+                if request.POST.get('next', None):
+                    return HttpResponseRedirect(request.POST.get('next')) # перенаправление на страницу которую вблил юзер в url но для которой нужен вход в акк
+                
                 return HttpResponseRedirect(reverse('main:index')) # перенаправление, reverse() преобр в url адрес
     else:
         form = UserLoginForm() # пустая форма
