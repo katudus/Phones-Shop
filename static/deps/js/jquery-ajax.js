@@ -210,4 +210,29 @@ $(document).ready(function () {
             $("#deliveryAddressField").hide();
         }
     });
+
+    // Форматирование номера телефона при вводе
+    document.getElementById('id_phone_number').addEventListener('input', function (e) {
+        var x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,2})(\d{0,2})(\d{0,3})/);
+        e.target.value = !x[2]
+            ? '(' + x[1]
+            : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] + (x[4] ? '-' + x[4] : '') : '');
+    });
+
+    // Проверка номера телефона на стороне клиента при отправке формы
+    document.getElementById('create_order_form').addEventListener('submit', function (event) {
+        var phoneNumber = document.getElementById('id_phone_number').value;
+        var regex = /^\(\d{2}\) \d{2}-\d{2}-\d{3}$/;
+
+        if (!regex.test(phoneNumber)) {
+            document.getElementById('phone_number_error').style.display = 'block';
+            event.preventDefault();
+        } else {
+            document.getElementById('phone_number_error').style.display = 'none';
+
+            // Очистка номера телефона от скобок, пробелов и тире перед отправкой
+            var cleanedPhoneNumber = phoneNumber.replace(/[()\-\s]/g, '');
+            document.getElementById('id_phone_number').value = cleanedPhoneNumber;
+        }
+    });
 });

@@ -25,7 +25,13 @@ def login(request):
                 messages.success(request, f"{username}, Вы вошли в аккаунт") # обратная связь с пользователем
 
                 if session_key:
+                    # delete old authorized user carts
+                    forgot_carts = Cart.objects.filter(user=user)
+                    if forgot_carts.exists():
+                        forgot_carts.delete()
+                    # add new authorized user carts from anonimous session
                     Cart.objects.filter(session_key=session_key).update(user=user)
+                    
                 redirect_page = request.POST.get('next', None)
                 if redirect_page and redirect_page != reverse('user:logout'):
                     return HttpResponseRedirect(request.POST.get('next')) # перенаправление на страницу которую вблил юзер в url но для которой нужен вход в акк
@@ -54,7 +60,7 @@ def registration(request):
 
             if session_key:
                     Cart.objects.filter(session_key=session_key).update(user=user)
-            messages.success(request, f"{user.username}, вы успешно зарегистрированы и вошли в аккаунт")
+            messages.success(request, f"{user.username}, Вы успешно зарегистрированы и вошли в аккаунт")
             return HttpResponseRedirect(reverse('main:index'))
     else:
         form = UserRegistrationForm() # пустая форма

@@ -25,8 +25,9 @@ class Cart(models.Model):
 
     class Meta:
         db_table = 'cart'
-        verbose_name = "Корзина"
-        verbose_name_plural = "Корзина"
+        verbose_name = 'Корзина'
+        verbose_name_plural = 'Корзина'
+        ordering = ('id',)
 
     objects = CartQueryset().as_manager() # переопределение менеджера QuerySet для CartQueryset
 
