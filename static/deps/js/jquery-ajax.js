@@ -211,28 +211,26 @@ $(document).ready(function () {
         }
     });
 
-    // Форматирование номера телефона при вводе
+    // Форматирования ввода номера телефона в форме (xxx) xxx-хххx
     document.getElementById('id_phone_number').addEventListener('input', function (e) {
         var x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,2})(\d{0,2})(\d{0,3})/);
-        e.target.value = !x[2]
-            ? '(' + x[1]
-            : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] + (x[4] ? '-' + x[4] : '') : '');
+        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] + (x[4] ? '-' + x[4]: ''): '');
     });
 
-    // Проверка номера телефона на стороне клиента при отправке формы
-    document.getElementById('create_order_form').addEventListener('submit', function (event) {
-        var phoneNumber = document.getElementById('id_phone_number').value;
+    // Проверяем на стороне клинта коррекность номера телефона в форме xxx-xxx-хх-хx
+    $('#create_order_form').on('submit', function (event) {
+        var phoneNumber = $('#id_phone_number').val();
         var regex = /^\(\d{2}\) \d{2}-\d{2}-\d{3}$/;
 
         if (!regex.test(phoneNumber)) {
-            document.getElementById('phone_number_error').style.display = 'block';
+            $('#phone_number_error').show();
             event.preventDefault();
         } else {
-            document.getElementById('phone_number_error').style.display = 'none';
+            $('#phone_number_error').hide();
 
-            // Очистка номера телефона от скобок, пробелов и тире перед отправкой
+            // Очистка номера телефона от скобок и тире перед отправкой формы
             var cleanedPhoneNumber = phoneNumber.replace(/[()\-\s]/g, '');
-            document.getElementById('id_phone_number').value = cleanedPhoneNumber;
+            $('#id_phone_number').val(cleanedPhoneNumber);
         }
     });
 });
