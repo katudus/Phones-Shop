@@ -5,6 +5,8 @@ from main import views
 app_name = 'main'
 # маршруты:
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('about/', views.about, name='about'),
+    path('', views.IndexView.as_view(), name='index'),
+    # path('', views.index, name='index'),
+    path('about/', views.AboutView.as_view(), name='about'),
+    # path('about/', views.about, name='about'),
 ]
