@@ -12,14 +12,16 @@
 {% block content %}
     <div class="mt-5 pt-5 bg-white custom-shadow rounded">
         <h2 class="m-2"><strong>{{ content }}</strong></h2>
-        <p class="m-2">{{ text_on_page }}</p>
+        <div class="content-wrapper" style="padding-bottom: 1em;">
+            <h5 class="m-2">{{ text_on_page|safe }}</h5> <!--В Django-шаблоне: Фильтр safe позволяет рендерить HTML-код внутри строки, не экранируя его.-->
+        </div>
     </div>
 {% endblock %}
 
 {% block footer %}
 <footer class="py-4 bg-dark">
     <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Home Python Hub Studio 2023</p>
+        <p class="m-0 text-center text-white">Copyright &copy; DialStore 2024. Все права защищены.</p>
     </div>
 </footer>
 {% endblock %}
