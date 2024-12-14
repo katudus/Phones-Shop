@@ -6,8 +6,12 @@
 {% include "includes/cart_button.html" %}
 {% endblock  %}
 
+{% block css %}
+    <link rel="stylesheet" href="{% static "deps/css/dinamic_footer_css.css" %}">
+{% endblock %}
 
 {% block content %}
+{% if goods %}
 <div class="row">
     <!-- Форма фильтров -->
     <div class="dropdown mb-2">
@@ -51,20 +55,24 @@
             <button type="submit" class="btn btn-primary mx-3 mt-3">Применить</button>
         </form>
     </div>
+    {% endif %}
 
     {% if request.GET.q %}
         <h3 class="mt-4">Результаты поиска по запросу {{ request.GET.q }}</h3>
-    {% if not goods %}
-        <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
-        <h2 class="mt-4">По запросу ничего не найдено</h2>
-    {% endif %}
-    {% endif %}
+        {% if not goods %}
+            <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
+            <h2 class="mt-4">По запросу ничего не найдено</h2>
+        {% endif %}
+    {% else %}
+    {% if no_goods_message %}
+    <h2 class="mt-4">{{ no_goods_message }}</h2>
+    {% else %}
     {% for product in  goods %}
         <!-- Карта товара -->
         <div class="col-lg-4 col-md-6 p-4">
             <div class="card border-primary rounded custom-shadow">
                 {% if product.image %}
-                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }} width="400" height="400"">
                 {% else %}
                     <img src="{% static "deps/images/Not found image.png" %}" class="card-img-top" alt="...">
                 {% endif %}
@@ -73,9 +81,9 @@
                         <p class="card-title">
                             {% autoescape off %}
                                 {% if product.headline %}
-                                {{ product.headline }}
+                                {{ product.headline|truncatechars:100 }}
                                 {% else %}
-                                {{ product.name }}
+                                {{ product.name|truncatechars:30 }}
                                 {% endif %}
                             {% endautoescape %}
                         </p>
@@ -92,11 +100,11 @@
                     <p class="product_id">id: {{ product.display_id }}</p>
                     <div class="d-flex justify-content-between">
                         {% if product.discount %}
-                            <p><s>{{ product.price }}</s> $</p>
-                            <p><strong>{{ product.sell_price }} $</strong></p>
+                            <p><s>{{ product.price }}</s> BYN</p>
+                            <p><strong>{{ product.sell_price }} BYN</strong></p>
                             <span class="badge bg-warning text-dark">{{ product.discount }} %</span>
                         {% else %}
-                            <p><strong>{{ product.price }} $</strong></p>
+                            <p><strong>{{ product.price }} BYN</strong></p>
                         {% endif %} 
                         <a href="{% url "cart:cart_add" %}" class="btn add-to-cart"
                         data-product-id="{{ product.id }}">
@@ -109,7 +117,8 @@
             </div>
         </div>
     {% endfor %}
-    
+    {% endif %}
+    {% endif %}
 
 
 

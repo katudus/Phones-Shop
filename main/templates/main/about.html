@@ -2,6 +2,7 @@
 {% load static %} <!--явно прописываем тк от шаблона к шаблону не наследуется--> 
 
 {% block css %}
+    <link rel="stylesheet" href="{% static "deps/css/scrollbar_css.css" %}">
     <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
 {% endblock %}
 

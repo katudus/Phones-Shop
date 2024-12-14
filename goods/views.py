@@ -13,7 +13,7 @@ class CatalogView(ListView):
     template_name = "goods/catalog.html"
     context_object_name = "goods"
     paginate_by = 3
-    allow_empty = False
+    #allow_empty = False # мешает полнотекстовому поиску
     # чтоб удобно передать в методы
     slug_url_kwarg = "category_slug"
 
@@ -29,8 +29,12 @@ class CatalogView(ListView):
             goods = q_search(query)
         else:
             goods = super().get_queryset().filter(category__slug=category_slug)
-            if not goods.exists():
-                raise Http404()
+            # if not goods.exists():
+            #     raise Http404()
+        
+        # Если товаров нет, вернуть пустой QuerySet (не поднимая Http404)
+        if not goods.exists() and category_slug != "all":
+            goods = super().get_queryset().none()
 
         if on_sale:
             goods = goods.filter(discount__gt=0)
@@ -44,6 +48,8 @@ class CatalogView(ListView):
         context = super().get_context_data(**kwargs)
         context["title"] = "Home - Каталог"
         context["slug_url"] = self.kwargs.get(self.slug_url_kwarg)
+        # Проверка, есть ли товары
+        context["no_goods_message"] = f"Загляните позже!" if not self.object_list.exists() else ""
         return context
 
 

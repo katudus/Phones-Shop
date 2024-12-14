@@ -25,7 +25,7 @@ class Cart(models.Model):
 
     class Meta:
         db_table = 'cart'
-        verbose_name = 'Корзина'
+        verbose_name = 'корзину'
         verbose_name_plural = 'Корзина'
         ordering = ('id',)
 

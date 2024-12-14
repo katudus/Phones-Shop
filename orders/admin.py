@@ -57,7 +57,7 @@ class OrderAdmin(admin.ModelAdmin):
         "is_paid",
         "created_timestamp",
     )
-
+    list_editable= ["status","is_paid",]
     search_fields = (
         "id",
     )
@@ -69,3 +69,13 @@ class OrderAdmin(admin.ModelAdmin):
         "is_paid",
     )
     inlines = (OrderItemTabulareAdmin,)
+    
+    
+    def formfield_for_choice_field(self, db_field, request, **kwargs):
+        if db_field.name == "status":
+            # Ограничиваем список доступных статусов
+            kwargs["choices"] = [
+                ("in_process", "В обработке"),
+                ("completed", "Выполнен"),
+            ]
+        return super().formfield_for_choice_field(db_field, request, **kwargs)

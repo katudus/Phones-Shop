@@ -8,7 +8,7 @@ class Categories(models.Model):
 
     class Meta:
         db_table = 'category'
-        verbose_name = 'Категорию'
+        verbose_name = 'категорию'
         verbose_name_plural = 'Категории'
         ordering = ('id',)
 
@@ -28,7 +28,7 @@ class Products(models.Model):
 
     class Meta:
         db_table = 'product'
-        verbose_name = 'Продукт'
+        verbose_name = 'продукт'
         verbose_name_plural = 'Продукты'
         ordering = ('id',)
 

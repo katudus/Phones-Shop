@@ -55,8 +55,3 @@ body {
   border-radius: 15px;
   font-size: 0.7rem;
 }
-
-.content-wrapper {
-  max-height: calc(100vh - 350px);  /* Прокручиваемая область */
-  overflow-y: auto;                /* Добавляем вертикальную прокрутку */
-}

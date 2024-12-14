@@ -103,7 +103,7 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="heading{{ order.id }}">
                                     <button class="accordion-button {% if order != orders.0 %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ order.id }}" aria-expanded="false" aria-controls="collapse{{ order.id }}">
-                                        Заказ № {{ order.id }} - {{ order.created_timestamp }} | Статус: <strong class="mx-2">{{ order.status }}</strong>
+                                        Заказ № {{ order.id }} - {{ order.created_timestamp }} | Статус: <strong class="mx-2">{{ order.get_status_display }}</strong> <img class="mx-1" src="{% static "deps/icons/bag-heart-fill.svg" %}" alt="Icon" width="16" height="16">
                                     </button>
                                 </h2>
                                 <div id="collapse{{ order.id }}" class="accordion-collapse collapse {% if order == orders.0 %}show{% endif %}" aria-labelledby="heading{{ order.id }}" data-bs-parent="#accordionExample">
@@ -114,7 +114,7 @@
                                                     <th>Товар</th>
                                                     <th>Количество</th>
                                                     <th>Цена</th>
-                                                    <th>Общая стоимость</th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>

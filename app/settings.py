@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []  # '*'
 # Application definition
 
 INSTALLED_APPS = [
+    'jet', 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -154,3 +155,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.User' # указали джанго что переопределили его стандартную модель
 LOGIN_URL = '/user/login/'
 LOGIN_REDIRECT_URL = '/'
+
+# внешний вид
+JET_DEFAULT_THEME = 'default'  # Тема по умолчанию (доступны 'default', 'light-gray', 'light-blue')
+JET_SIDE_MENU_COMPACT = True  # Компактный боковой меню
+
+# JET_THEMES = [
+#     {
+#         'theme': 'default',  # Название темы
+#         'color': '#2c3e50',  # Основной цвет
+#         'title': 'Default Theme',  # Заголовок темы
+#     },
+#     # {
+#     #     'theme': 'light-gray',
+#     #     'color': '#ecf0f1',
+#     #     'title': 'Light Gray Theme',
+#     # },
+#     # {
+#     #     'theme': 'light-blue',
+#     #     'color': '#3498db',
+#     #     'title': 'Light Blue Theme',
+#     # },
+# ]
