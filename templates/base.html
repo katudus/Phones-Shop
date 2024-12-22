@@ -57,7 +57,7 @@
                                     Мой профиль
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item  text-white" href="{% url "user:users_cart" %}">Корзина</a></li>
+                                    {% comment %} <li><a class="dropdown-item  text-white" href="{% url "user:users_cart" %}">Корзина</a></li> {% endcomment %}
                                     <li><a class="dropdown-item  text-white" href="{% url "user:profile" %}">Личный кабинет</a>
                                     </li>
                                     {% if user.is_admin or user.is_staff %}
@@ -111,7 +111,7 @@
                 </div>
                 <div class="col-lg-10">
                     <!-- Контент на странице -->
-                     {% include "includes/notifications.html" %}
+                    {% include "includes/notifications.html" %}
                     {% block content %}{% endblock %}
                 </div>
             </div>
