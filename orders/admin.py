@@ -2,9 +2,6 @@ from django.contrib import admin
 
 from orders.models import Order, OrderItem
 
-# Register your models here.
-# admin.site.register(Order)
-# admin.site.register(OrderItem)
 
 class OrderItemTabulareAdmin(admin.TabularInline):
     model = OrderItem
@@ -73,7 +70,6 @@ class OrderAdmin(admin.ModelAdmin):
     
     def formfield_for_choice_field(self, db_field, request, **kwargs):
         if db_field.name == "status":
-            # Ограничиваем список доступных статусов
             kwargs["choices"] = [
                 ("in_process", "В обработке"),
                 ("completed", "Выполнен"),

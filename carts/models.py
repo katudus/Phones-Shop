@@ -3,7 +3,7 @@ from django.db import models
 from goods.models import Products
 from users.models import User
 
-# Create your models here.
+
 class CartQueryset(models.QuerySet):
 
     def total_price(self):
@@ -20,7 +20,7 @@ class Cart(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Пользователь')
     product = models.ForeignKey(to=Products, on_delete=models.CASCADE, verbose_name='Товар')
     quantity = models.PositiveSmallIntegerField(default=0, verbose_name='Количество')
-    session_key = models.CharField(max_length=32, blank=True, null=True) # каждого пользователю джанго и так присваевает свой ключ сессии, а тут он для того чтобы если пользователь не авторизован то данные в висящей корзине будут по соотв ключу в бд файлу куки
+    session_key = models.CharField(max_length=32, blank=True, null=True)
     created_timestamp = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
 
     class Meta:
@@ -29,7 +29,7 @@ class Cart(models.Model):
         verbose_name_plural = 'Корзины'
         ordering = ('id',)
 
-    objects = CartQueryset().as_manager() # переопределение менеджера QuerySet для CartQueryset
+    objects = CartQueryset().as_manager()
 
 
     def products_price(self):

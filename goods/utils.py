@@ -1,4 +1,3 @@
-from django.db.models import Q
 from django.contrib.postgres.search import (
     SearchVector,
     SearchQuery,
@@ -14,7 +13,6 @@ def q_search(query):
     if query.isdigit() and len(query) <= 5:
         return Products.objects.filter(id=int(query))
 
-    # Это полнотекстовый поиск по похожести от Django:
     vector = SearchVector("name", "description")
     query = SearchQuery(query)
 
@@ -24,7 +22,7 @@ def q_search(query):
         .order_by("-rank")
     )
 
-    # выделение совпадений:
+
     result = result.annotate(
         headline=SearchHeadline(
             "name",
@@ -42,15 +40,3 @@ def q_search(query):
         )
     )
     return result
-
-    # Это поиск по вхождениям, который стал полнотекстовым в результате подключения postgres:
-    # keywords = [word for word in query.split() if len(word) > 2]
-
-    # q_objects = Q()
-
-    # icontains перестал учитывать регистр
-    # for token in keywords:
-    #     q_objects |= Q(description__icontains=token)
-    #     q_objects |= Q(name__icontains=token)
-
-    # return Products.objects.filter(q_objects)

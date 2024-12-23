@@ -1,14 +1,14 @@
 html, body {
-    height: 100%;  /* Устанавливаем высоту для всего документа */
-    margin: 0;  /* Убираем отступы */
-    display: flex;  /* Используем flexbox для всего документа */
-    flex-direction: column;  /* Растягиваем элементы по вертикали */
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
   }
 
   .content {
-    flex: 1;  /* Заполняет все доступное пространство */
+    flex: 1;
   }
 
   footer {
-    margin-top: auto;  /* Отодвигает футер в самый низ */
+    margin-top: auto;
   }

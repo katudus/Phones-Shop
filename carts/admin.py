@@ -2,8 +2,7 @@ from django.contrib import admin
 
 from carts.models import Cart
 
-# Register your models here.
-# admin.site.register(Cart)
+
 class CartTabAdmin(admin.TabularInline):
     model = Cart
     fields = 'product', 'quantity', 'created_timestamp'
@@ -25,7 +24,6 @@ class CartAdmin(admin.ModelAdmin):
     def product_display(self, obj):
         return str(obj.product.name)
     
-    # user_display and product_display alter name of columns in admin panel
     user_display.short_description = "Пользователь"
     product_display.short_description = "Товар"
 

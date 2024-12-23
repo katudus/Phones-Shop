@@ -10,7 +10,7 @@
             <div class="col-md-5">
                 <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
                     <h3 class="text-center mb-4">Профиль пользователя</h3>
-                    <form action="{% url "user:profile" %}" method="post" enctype="multipart/form-data"> <!-- enctype чтобы оправлялись не только текст. данные -->
+                    <form action="{% url "user:profile" %}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-md-12 mb-3 text-center">
@@ -118,7 +118,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {% for item in order.orderitem_set.all %} <!-- проход выборки из вью всех заказов юзера -->
+                                                {% for item in order.orderitem_set.all %}
                                                 <tr>
                                                     <td><a class="text-white" href="{% url 'goods:product' item.product.slug %}">{{ item.product.name }}</a></td>
                                                     <td>{{ item.quantity }}</td>

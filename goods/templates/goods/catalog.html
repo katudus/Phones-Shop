@@ -16,7 +16,7 @@
     <!-- Форма фильтров -->
     <div class="dropdown mb-2">
         <button class="btn btn-secondary dropdown-toggle btn-dark" type="button" data-bs-toggle="dropdown"
-            aria-expanded="false" data-bs-auto-close="outside"> <!-- ласт параметр отключение реагирования на клик в окне -->
+            aria-expanded="false" data-bs-auto-close="outside">
             Фильтры
         </button>
 
@@ -88,12 +88,12 @@
                             {% endautoescape %}
                         </p>
                     </a>
-                    <p class="card-text text-truncate"> <!-- text-truncate если не писать |truncatechars: -->
+                    <p class="card-text text-truncate">
                         {% autoescape off %}
                             {% if product.bodyline %}
-                            {{ product.bodyline }} <!-- |truncatechars:100 -->
+                            {{ product.bodyline }}
                             {% else %}
-                            {{ product.description }} <!-- |truncatechars:35 -->
+                            {{ product.description }}
                             {% endif %}
                         {% endautoescape %}
                     </p>

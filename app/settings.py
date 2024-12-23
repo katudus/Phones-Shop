@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-55)_m+a(4$7er$7%w%)z6u$62c9w*o+pbh$8zfbuh1(y*5cac6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True  # False не для локальной работы сервера
+DEBUG = True  
 
 ALLOWED_HOSTS = []  # '*'
 
@@ -41,10 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.postgres', # для полнотекстового поиска с сортировкой по релевантности
+    'django.contrib.postgres',
 
     'debug_toolbar',
-    # регистрация приложений
+    
     'main',
     'goods',
     'users',
@@ -90,12 +90,12 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql', # что используем, дальше атрибуты БД
+        'ENGINE': 'django.db.backends.postgresql', 
         'NAME': 'phone',
         'USER': 'phone',
-        'PASSWORD': 'phone', # пароль от БД phone
-        'HOST': 'localhost', # комповая сеть
-        'PORT': '5432', # конкретный канал сети (айпи), у самого джанго 8000
+        'PASSWORD': 'phone',
+        'HOST': 'localhost',
+        'PORT': '5432', 
     }
 }
 
@@ -134,13 +134,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/' # название url-префикса
+STATIC_URL = 'static/'
 
-STATICFILES_DIRS = [BASE_DIR / 'static']  # где находится статик в папках
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
-MEDIA_URL = 'media/' # название url-префикса
+MEDIA_URL = 'media/'
 
-MEDIA_ROOT = BASE_DIR / 'media' # где искать картинки
+MEDIA_ROOT = BASE_DIR / 'media'
 
 INTERNAL_IPS = [
     # ...
@@ -152,28 +152,9 @@ INTERNAL_IPS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AUTH_USER_MODEL = 'users.User' # указали джанго что переопределили его стандартную модель
+AUTH_USER_MODEL = 'users.User'
 LOGIN_URL = '/user/login/'
 LOGIN_REDIRECT_URL = '/'
 
-# внешний вид
-JET_DEFAULT_THEME = 'default'  # Тема по умолчанию (доступны 'default', 'light-gray', 'light-blue')
-JET_SIDE_MENU_COMPACT = True  # Компактный боковой меню
-
-# JET_THEMES = [
-#     {
-#         'theme': 'default',  # Название темы
-#         'color': '#2c3e50',  # Основной цвет
-#         'title': 'Default Theme',  # Заголовок темы
-#     },
-#     # {
-#     #     'theme': 'light-gray',
-#     #     'color': '#ecf0f1',
-#     #     'title': 'Light Gray Theme',
-#     # },
-#     # {
-#     #     'theme': 'light-blue',
-#     #     'color': '#3498db',
-#     #     'title': 'Light Blue Theme',
-#     # },
-# ]
+JET_DEFAULT_THEME = 'default'
+JET_SIDE_MENU_COMPACT = True
